@@ -4183,7 +4183,7 @@ struct mg_connection *mg_mqtt_connect(struct mg_mgr *mgr, const char *url,
 struct mg_connection *mg_mqtt_listen(struct mg_mgr *mgr, const char *url,
                                      mg_event_handler_t fn, void *fn_data) {
   struct mg_connection *c = mg_listen(mgr, url, fn, fn_data);
-  if (c != NULL) c->pfn = mqtt_cb, c->pfn_data = mgr;
+  if (c != NULL) c->pfn = mqtt_cb, c->pfn_data = mgr;// Inside if() statemts can be separated with "," comma, {didn't know that}
   return c;
 }
 
@@ -4467,7 +4467,7 @@ void mg_mgr_init(struct mg_mgr *mgr) {
   mgr->dnstimeout = 3000;
   mgr->dns4.url = "udp://8.8.8.8:53";
   mgr->dns6.url = "udp://[2001:4860:4860::8888]:53";
-  mg_tls_ctx_init(mgr);
+  mg_tls_ctx_init(mgr); // I think this does avoids the compiler warnings about the *mgr not being used any where in this parent funciton
 }
 
 #ifdef MG_ENABLE_LINES
